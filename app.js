@@ -1,8 +1,16 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
-app.use('/api/stuff', (req, res, next) => {
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
+app.post('/api/sauces', (req, res, next) => {
     const stuff = [
       {
         _id: 'oeihfzeoi',
@@ -24,4 +32,61 @@ app.use('/api/stuff', (req, res, next) => {
     res.status(200).json(stuff);
   });
 
+app.get('/api/sauces', (req, res, next) => {
+    const stuff = [
+      {
+        _id: 'oeihfzeoi',
+        title: 'Mon premier objet',
+        description: 'Les infos de mon premier objet',
+        imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
+        price: 4900,
+        userId: 'qsomihvqios',
+      },
+      {
+        _id: 'oeihfzeomoihi',
+        title: 'Mon deuxième objet',
+        description: 'Les infos de mon deuxième objet',
+        imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
+        price: 2900,
+        userId: 'qsomihvqios',
+      },
+      {
+        userId :'',
+        name :'fdbvds',
+        manufacturer :'dsvdsv',
+        description : 'sdwvdvdswvdsvdsvdsvdsvdsv',
+        mainPepper : 'dvdsv',
+        imageUrl : 'sdvdsv.csqc',
+        heat :9,
+        likes :10,
+        dislikes : 12,
+        usersLiked : {
+
+        },
+        usersDisliked : {}
+      },
+    ];
+    res.status(200).json(stuff);
+  });
+
+
+
 module.exports = app;
+
+/*
+ {
+        userId :'',
+        name :'fdbvds',
+        manufacturer :'dsvdsv',
+        description : 'sdwvdvdswvdsvdsvdsvdsvdsv',
+        mainPepper : 'dvdsv',
+        imageUrl : 'sdvdsv.csqc',
+        heat :9,
+        likes :10,
+        dislikes : 12,
+        usersLiked : {
+
+        },
+        usersDisliked : {}
+      },
+ */
