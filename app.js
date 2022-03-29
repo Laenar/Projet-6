@@ -24,21 +24,3 @@ app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
 
 module.exports = app;
-
-/*
- {
-        userId :'',
-        name :'fdbvds',
-        manufacturer :'dsvdsv',
-        description : 'sdwvdvdswvdsvdsvdsvdsvdsv',
-        mainPepper : 'dvdsv',
-        imageUrl : 'sdvdsv.csqc',
-        heat :9,
-        likes :10,
-        dislikes : 12,
-        usersLiked : {
-
-        },
-        usersDisliked : {}
-      },
- */
