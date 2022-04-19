@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require('path');
 
 const saucesRoutes = require('./routes/sauces.js');
 const userRoutes = require('./routes/user.js');
@@ -28,5 +29,6 @@ app.use(cors());
 app.options('*', cors());
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
