@@ -5,12 +5,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require('path');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const saucesRoutes = require('./routes/sauces.js');
 const userRoutes = require('./routes/user.js');
 
-const databasePass = 'uPOzov04B9F8jEjh';
-
-mongoose.connect('mongodb+srv://primaryUser:'+databasePass+'@cluster0.rmwua.mongodb.net/piiquante?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://primaryUser:'+process.env.PASSWORD+'@cluster0.rmwua.mongodb.net/piiquante?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -29,6 +30,6 @@ app.use(cors());
 app.options('*', cors());
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(process.env.PATH_IMG, express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
