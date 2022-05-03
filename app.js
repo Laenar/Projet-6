@@ -11,7 +11,7 @@ dotenv.config();
 const saucesRoutes = require('./routes/sauces.js');
 const userRoutes = require('./routes/user.js');
 
-mongoose.connect('mongodb+srv://primaryUser:'+process.env.PASSWORD+'@cluster0.rmwua.mongodb.net/piiquante?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://'+process.env.USER+':'+process.env.PASSWORD+'@'+process.env.NAME+'.rmwua.mongodb.net/piiquante?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
