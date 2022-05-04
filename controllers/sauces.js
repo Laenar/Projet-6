@@ -3,17 +3,20 @@ const Sauce = require('../models/sauces');
 let pathImg = process.env.PATH_IMG || "/images/";
 
 exports.getAllSauces = (req, res, next) => {
+    console.log("###> getAllSauces");
     Sauce.find()
     .then(sauces => res.status(200).json(sauces))
     .catch(error => res.status(400).json({ error }));
 };
 exports.getOneSauce = (req, res, next) => {
+    console.log("###> getOneSauce");
     Sauce.findOne({ _id: req.params.id })
       .then(sauces => res.status(200).json(sauces))
       .catch(error => res.status(404).json({ error }));
 };
 
 exports.updateOneSauce = (req, res, next) => {   
+    console.log("###> updateOneSauce");
     const sauceObject = req.file ? {
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}`+pathImg+`${req.file.filename}`
@@ -24,6 +27,7 @@ exports.updateOneSauce = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }))
 };
 exports.deleteOneSauce = (req, res, next) => {
+    console.log("###> deleteOneSauce");
     Sauce.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: 'La sauce à été supprimé !'}))
     .catch(error => res.status(400).json({ error }));
@@ -31,6 +35,7 @@ exports.deleteOneSauce = (req, res, next) => {
 exports.addOneSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
+    console.log("###> addOneSauce");
     const sauce = new Sauce({
         ...sauceObject,
         imageUrl: `${req.protocol}://${req.get('host')}`+pathImg+`${req.file.filename}`,
@@ -72,10 +77,7 @@ exports.likeOneSauce = (req, res, next) => {
                         .catch(error => res.status(400).json({ error }));
                 }
             });
-
-            
-        })
-        .catch(error => res.status(400).json({ error }));
+        }).catch(error => res.status(400).json({ error }));
     } else if (likeValue == 1) {
         Sauce.updateOne({ _id: sauceId }, { $inc: { likes: 1 }, $push: { usersLiked: userId } })
         .then(() => res.status(200).json({ message: "Like ajouté à la sauce" }))
